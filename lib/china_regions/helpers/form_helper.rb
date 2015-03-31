@@ -10,7 +10,7 @@ module ChinaRegions
           (html_options[:class].prepend('region_select ')) : 
             (html_options[:class] = 'region_select')
 
-        dropdown_prefix = options[:prefix].to_s + "_" || ""
+        dropdown_prefix = options[:prefix] ? options[:prefix].to_s + "_" : ""
 
         if Array === methods
           methods.each_with_index do |method, index|
