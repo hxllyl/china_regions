@@ -34,7 +34,7 @@ module ChinaRegions
               	if district
               	 	choices = region_klass.where(:city_id => district.city_id).collect {|d| [d.name,c.id]}
               	else
-              	 	choices = []
+              	 	choices = @object.city ? @object.city.districts.collect {|d| [d.name,c.id]} : []
               	end	
               end
               next_method = methods.at(index + 1)
