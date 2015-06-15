@@ -12,6 +12,8 @@ module ChinaRegions
 
         dropdown_prefix = options[:prefix] ? options[:prefix].to_s + "_" : ""
 
+
+
         if Array === methods
           methods.each_with_index do |method, index|
             if region_klass = method.to_s.classify.safe_constantize
@@ -21,15 +23,14 @@ module ChinaRegions
               when 0
               	choices = region_klass.where(nil).collect {|p| [ p.name, p.id ] }
               when 1
-              	
-              	city =  object.send(send_method) rescue nil
+              	city =  @object.send(send_method) rescue nil
               	if city
               	 	choices = region_klass.where(:province_id => city.province_id)
               	else
               		choices = []
               	end	
               when 2
-              	district = object.send(send_method) rescue nil
+              	district = @object.send(send_method) rescue nil
               	if district
               	 	choices = region_klass.where(:city_id => district.city_id)
               	else
