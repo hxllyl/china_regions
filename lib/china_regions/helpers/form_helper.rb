@@ -15,7 +15,27 @@ module ChinaRegions
         if Array === methods
           methods.each_with_index do |method, index|
             if region_klass = method.to_s.classify.safe_constantize
-              choices = (index == 0 ? region_klass.where(nil).collect {|p| [ p.name, p.id ] } : [])
+              #choices = (index == 0 ? region_klass.where(nil).collect {|p| [ p.name, p.id ] } : [])
+              send_method = "#{dropdown_prefix}#{method}"
+              case index
+              when 0
+              	choices = region_klass.where(nil).collect {|p| [ p.name, p.id ] }
+              when 1
+              	
+              	city =  object.send(send_method) rescue nil
+              	if city
+              	 	choices = region_klass.where(:province_id => city.province_id)
+              	else
+              		choices = []
+              	end	
+              when 2
+              	district = object.send(send_method) rescue nil
+              	if district
+              	 	choices = region_klass.where(:city_id => district.city_id)
+              	else
+              	 	choices = []
+              	end	
+              end
               next_method = methods.at(index + 1)
 
               set_options(method, options, region_klass)
