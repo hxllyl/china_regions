@@ -34,7 +34,8 @@ module ChinaRegions
               	if district
               	 	choices = region_klass.where(:city_id => district.city_id).collect {|d| [d.name,d.id]}
               	else
-              	 	choices = @object.city ? @object.city.districts.collect {|d| [d.name,d.id]} : []
+              		city = "#{dropdown_prefix}_city"
+              	 	choices = @object.send(city).districts.collect {|d| [d.name,d.id]} rescue []
               	end	
               end
               next_method = methods.at(index + 1)
