@@ -25,14 +25,14 @@ module ChinaRegions
               when 1
               	city =  @object.send(send_method) rescue nil
               	if city
-              	 	choices = region_klass.where(:province_id => city.province_id)
+              	 	choices = region_klass.where(:province_id => city.province_id).collect {|c| [c.name,c.id]}
               	else
               		choices = []
               	end	
               when 2
               	district = @object.send(send_method) rescue nil
               	if district
-              	 	choices = region_klass.where(:city_id => district.city_id)
+              	 	choices = region_klass.where(:city_id => district.city_id).collect {|d| [d.name,c.id]}
               	else
               	 	choices = []
               	end	
