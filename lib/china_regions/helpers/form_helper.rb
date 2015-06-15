@@ -12,7 +12,7 @@ module ChinaRegions
 
         dropdown_prefix = options[:prefix] ? options[:prefix].to_s + "_" : ""
 
-
+        @object = options.delete(:object)
 
         if Array === methods
           methods.each_with_index do |method, index|
@@ -125,6 +125,7 @@ module ChinaRegions
 
     module FormBuilder
       def region_select(methods, options = {}, html_options = {})
+      	options[:object] = @object
         @template.region_select(@object_name, methods, options = options, html_options = html_options)
       end
     end
